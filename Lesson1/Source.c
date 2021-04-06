@@ -22,6 +22,20 @@ int main(int argc, char* argv[])
 	max = (max1 > max2) ? max1 : max2;
 	printf("Max number is %d", max);
 	//---------------------------------------------
+	//---------------------swap values-------------
+	int x, y, tmp=0;
+	printf("\nEnter two numbers using coma as delim: ");
+	scanf("%d, %d", &x, &y);
+	printf("\nSource values: x=%d, y=%d", x, y);
+	tmp = x;
+	x = y;
+	y = tmp;
+	printf("\nUsing third variable: x=%d, y=%d", x, y);
+	x = x ^ y;
+	y = y ^ x;
+	x = x ^ y;
+	printf("\nUsing XOR: x=%d, y=%d", x, y);
+	//---------------------------------------------
 
 	return 0;
 }
