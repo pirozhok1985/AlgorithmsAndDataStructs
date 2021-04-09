@@ -4,6 +4,7 @@
 
 void ConvertDToB(int number);
 int myPow(int number, int degree);
+int myPowRecursion(int number, int degree);
 int main(int argc, char* argv[])
 {
 	//int num;
@@ -12,7 +13,7 @@ int main(int argc, char* argv[])
 	//printf("Converted binary number: ");
 	//ConvertDToB(num);
 
-	printf("%d", myPow(2, 5));
+	printf("%d", myPowRecursion(2, 10));
 	return 0;
 }
 void ConvertDToB(int number)
@@ -31,4 +32,12 @@ int myPow(int number, int degree)
 		result *= number;
 	}
 	return result;
+}
+int myPowRecursion(int number, int degree)
+{ 
+	--degree;
+	int result = 1;
+	if (degree > 0)
+		result = myPowRecursion(number, degree);
+	return result *= number;
 }
