@@ -21,6 +21,7 @@ int main(int argc, char* argv[])
 	int myArr[ARRAY_LENGTH];
 	int myArr1[ARRAY_LENGTH];
 	int myArr2[ARRAY_LENGTH];
+	int myArr3[ARRAY_LENGTH];
 	int compareCount = 0;
 	int min;
 
@@ -30,6 +31,7 @@ int main(int argc, char* argv[])
 		myArr[i] = rand() % 101;
 		myArr1[i] = myArr[i];
 		myArr2[i] = myArr[i];
+		myArr3[i] = myArr[i];
 		printf("%d ", myArr[i]);
 	}
 	printf("\n\n\n");
@@ -41,13 +43,15 @@ int main(int argc, char* argv[])
 		{
 			if (myArr1[j] > myArr1[j + 1]) {
 				Swap(&myArr1[j], &myArr1[j + 1]);
-				compareCount++;
 			}
+			compareCount++;
 		}
 	}
-	//---------Print sorted array-------//
+
 	printf("Bubble sorted array:\n");
 	printf("Comparison count equals: %d\n", compareCount);
+
+	//---------Print sorted array-------//
 	arrayPrint(myArr1);
 	
 	//---------bubble sort perfomance---------//
@@ -59,8 +63,8 @@ int main(int argc, char* argv[])
 		{
 			if (myArr2[j] < myArr2[min]) {
 				min = j;
-				compareCount++;
 			}
+			compareCount++;
 		}
 		if(myArr2[min] < myArr2[i])
 			Swap(&myArr2[min], &myArr2[i]);
@@ -74,6 +78,30 @@ int main(int argc, char* argv[])
 	//---------Print sorted array-------//
 	arrayPrint(myArr2);
 
+	//---------Shake sort---------//
+	compareCount = 0;
+	for (int i = 0; i < ARRAY_LENGTH; i++)
+	{
+		for (int j = 0; j < ARRAY_LENGTH - 1; j++)
+		{
+			if (myArr3[j] > myArr3[j + 1]) {
+				Swap(&myArr3[j], &myArr3[j + 1]);
+			}
+		}
+		for (int j = ARRAY_LENGTH - 1; j > 0; j--)
+		{
+			if (myArr3[j] < myArr3[j - 1]) {
+				Swap(&myArr3[j], &myArr3[j - 1]);
+			}
+		}
+	}
+
+	printf("\n\n\n");
+	printf("Shake sorted array:\n");
+
+
+	//---------Print sorted array-------//
+	arrayPrint(myArr3);
 
 	return 0;
 }
