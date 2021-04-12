@@ -16,6 +16,24 @@ void arrayPrint(int* array)
 	}
 }
 
+int BinarySearch(int* array, int searchValue)
+{
+	int leftBorder = 0, rightBorder = ARRAY_LENGTH - 1;
+	int middle = leftBorder + (rightBorder - leftBorder) / 2;
+	while (leftBorder <= rightBorder && array[middle] != searchValue)
+	{
+		if (array[middle] <= searchValue)
+			leftBorder = middle + 1;
+		else
+			rightBorder = middle - 1;
+		middle = leftBorder + (rightBorder - leftBorder) / 2;
+	}
+	if (array[middle] == searchValue)
+		return middle;
+	else
+		return -1;
+}
+
 int main(int argc, char* argv[])
 {
 	int myArr[ARRAY_LENGTH];
@@ -24,6 +42,9 @@ int main(int argc, char* argv[])
 	int myArr3[ARRAY_LENGTH];
 	int compareCount = 0;
 	int min;
+	int myValue;
+	printf("Enter the number you want to be found: ");
+	scanf("%d", &myValue);
 
 	printf("Reference array:\n");
 	for (int i = 0; i < ARRAY_LENGTH; i++)
@@ -102,6 +123,9 @@ int main(int argc, char* argv[])
 
 	//---------Print sorted array-------//
 	arrayPrint(myArr3);
+
+	printf("\n\n\n");
+	printf("Element %d has index %d", myValue, BinarySearch(myArr3, myValue));
 
 	return 0;
 }
