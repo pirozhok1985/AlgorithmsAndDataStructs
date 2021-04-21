@@ -12,6 +12,11 @@ struct myObject
 myObject* structInit(const int val)
 {
 	myObject* item = (myObject*)malloc(sizeof(myObject));
+	if(item == NULL)
+	{
+		printf("Memory allocation error!!");
+		return NULL;
+	}
 	item->value = val;
 	item->next = NULL;
 	return  item;
@@ -43,16 +48,19 @@ int main(int argc, char** argv)
 		return 0;
 	}
 	myObject* item = structInit(number%2);
+	if (item  == NULL) return 1;
 	myObject** myStack = &item;
 	number /= 2;
 
 	while(number >= 2)
 	{
 		myObject* item = structInit(number % 2);
+		if (item == NULL) return 1;
 		Push(myStack, item);
 		number /= 2;
 	}
 	myObject* itemLast = structInit(number);
+	if (item == NULL) return 1;
 	Push(myStack, itemLast);
 	while ((*myStack) != NULL)
 	{
