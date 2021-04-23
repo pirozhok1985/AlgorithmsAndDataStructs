@@ -270,7 +270,7 @@ void ConvertToOPN(void)
 	T* arr = (T*)malloc(sizeof(int) * arrLength);
 	Comparision(stack, &expr, &arr);
 	PrintArray(&arr, arrLength);
-	free(stack);
+	//free(stack);
 	free(arr);
 }
 
