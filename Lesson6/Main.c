@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+
 
 void myHashFunc(char* str);
 void ConvertToHex(long long int number);
@@ -33,16 +33,11 @@ void myHashFunc(const char* str)
 
 void ConvertToHex(long long int number)
 {
-	long long int result = 0;
-	
-	while(number>=16)
+	if(number>=16)
 	{
 		ConvertToHex(number / 16);
-		result = number % 16;
-		printf("%c",Converter(result));
-		return;
 	}
-	printf("%c", Converter(number));
+	printf("%c", Converter(number % 16));
 }
 
 char Converter(int value)
