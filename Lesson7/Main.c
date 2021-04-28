@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define SIZE 5
 
-void PrintMatrix(char* fileName);
+void ReadMatrix(char* fileName, int** array, int length);
 
 int main(int argc, char** argv)
 {
-	PrintMatrix("matrix.txt");
+	int matrix[SIZE][SIZE];
+	ReadMatrix("matrix.txt", &matrix, (SIZE*SIZE));
 	return 0;
 }
 
-void PrintMatrix(char* fileName)
+void ReadMatrix(char* fileName, int** array, int length)
 {
 	FILE* fileStream = fopen(fileName, "rb");
 	if(fileStream == NULL)
@@ -17,20 +19,9 @@ void PrintMatrix(char* fileName)
 		printf("Open file error!");
 		exit(1);
 	}
-	fseek(fileStream, 0, SEEK_END);
-	long fsize = ftell(fileStream);
-	rewind(fileStream);
-
-	char* buffer = (char*)malloc(sizeof(char) * fsize);
-	if (buffer == NULL)
+	for (int i = 0; i < length; i++)
 	{
-		printf("Error buffer creation!");
-		exit(1);
+		fscanf(fileStream, "%d", (array + i));
 	}
-
-	fread(buffer, 1, fsize, fileStream);
-	puts(buffer);
-
 	fclose(fileStream);
-	free(buffer);
 }
