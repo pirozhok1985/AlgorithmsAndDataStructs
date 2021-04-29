@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 {
 	ReadMatrix("matrix.txt", matrix, (SIZE*SIZE));
 	PrintMatrix(matrix, (SIZE * SIZE));
-	printf("\n\n\n");
+	printf("\nDFS: ");
 	DFS(0);
 	return 0;
 }
