@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #define SIZE 5
 
+typedef struct Queue queue;
+struct Queue
+{
+	int peakNum;
+	queue* next;
+};
+void Enqueue(int value, queue* End);
+int Dequeue(queue* Begin);
+queue* First(int value);
+
 void ReadMatrix(char* fileName, int** array, int length);
 void PrintMatrix(int** array, int length);
 void DFS(int peak);
@@ -67,20 +77,58 @@ void BFS(int peak)
 	// 1 - unprocessed peak
 	// 2 - reached peak
 	// 3 - processed peak
+	queue* Begin = First(peak);
+	queue* End = Begin;
 	PeakStatus[0] = 2;
-	for (int i = peak; i < SIZE; i++)
+	while (PeakStatus[peak] == 2)
 	{
-		if (PeakStatus[i] == 3 || PeakStatus[i] == 1)
-		{
-			continue;
-		}
 		for (int j = 0; j < SIZE; j++)
 		{
-			if (matrix[i][j] == 1 && PeakStatus[j] == 1)
+			if (matrix[peak][j] == 1 && PeakStatus[j] == 1)
 			{
 				PeakStatus[j] = 2;
+				Enqueue(j,&End);
 			}
 		}
-		PeakStatus[i] = 3;
+		
+		PeakStatus[peak] = 3;
+		int isProcessed = 0;
+		for (int i = 0; i < SIZE; i++)
+		{
+			if (PeakStatus[i] == 3)
+				isProcessed++;
+		}
+		if (isProcessed == 5)
+			return;
+		if(peak == 0)
+		{
+			Dequeue(&Begin);
+			peak = Dequeue(&Begin);
+		}
+		else
+			peak = Dequeue(&Begin);
 	}
+}
+queue* First(int value)
+{
+	queue* item = (queue*)malloc(sizeof(queue));
+	item->peakNum = value;
+	item->next = 0;
+	return item;
+}
+void Enqueue(int value, queue** End)
+{
+	queue* item = (queue*)malloc(sizeof(queue));
+	item->peakNum = value;
+	item->next = 0;
+	(*End)->next = item;
+	*End = item;
+}
+int Dequeue(queue** Begin)
+{
+	int tmp = (*Begin)->peakNum;
+	queue* p = (*Begin)->next;
+	free(*Begin);
+	*Begin = p;
+	return tmp;
 }
