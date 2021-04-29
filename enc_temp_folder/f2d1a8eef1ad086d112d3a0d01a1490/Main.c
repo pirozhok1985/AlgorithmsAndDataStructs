@@ -4,7 +4,7 @@
 
 void ReadMatrix(char* fileName, int** array, int length);
 void PrintMatrix(int** array, int length);
-void DFS(int peak);
+void GraphTraverse(int peak);
 int matrix[SIZE][SIZE];
 int processedPeaks[SIZE];
 
@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	ReadMatrix("matrix.txt", matrix, (SIZE*SIZE));
 	PrintMatrix(matrix, (SIZE * SIZE));
 	printf("\n\n\n");
-	DFS(0);
+	GraphTraverse(0);
 	return 0;
 }
 
@@ -42,7 +42,7 @@ void PrintMatrix(int** array, int length)
 			printf("%d ", *(tmp + i));
 	}
 }
-void DFS(int peak)
+void GraphTraverse(int peak)
 {
 	for (int i = peak; i < SIZE; i++)
 	{
@@ -53,7 +53,7 @@ void DFS(int peak)
 			if (matrix[i][j] == 1 && processedPeaks[j] == 0)
 			{
 				peak = j;
-				DFS(peak);
+				GraphTraverse(peak);
 			}
 		}
 		return;
