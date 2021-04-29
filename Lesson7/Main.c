@@ -5,8 +5,10 @@
 void ReadMatrix(char* fileName, int** array, int length);
 void PrintMatrix(int** array, int length);
 void DFS(int peak);
+void BFS(int peak);
 int matrix[SIZE][SIZE];
-int processedPeaks[SIZE];
+int processedPeaks[SIZE]; // DFS
+int PeakStatus[SIZE] = {1,1,1,1,1}; // BFS
 
 int main(int argc, char** argv)
 {
@@ -14,6 +16,7 @@ int main(int argc, char** argv)
 	PrintMatrix(matrix, (SIZE * SIZE));
 	printf("\nDFS: ");
 	DFS(0);
+	BFS(0);
 	return 0;
 }
 
@@ -57,5 +60,27 @@ void DFS(int peak)
 			}
 		}
 		return;
+	}
+}
+void BFS(int peak)
+{
+	// 1 - unprocessed peak
+	// 2 - reached peak
+	// 3 - processed peak
+	PeakStatus[0] = 2;
+	for (int i = peak; i < SIZE; i++)
+	{
+		if (PeakStatus[i] == 3 || PeakStatus[i] == 1)
+		{
+			continue;
+		}
+		for (int j = 0; j < SIZE; j++)
+		{
+			if (matrix[i][j] == 1 && PeakStatus[j] == 1)
+			{
+				PeakStatus[j] = 2;
+			}
+		}
+		PeakStatus[i] = 3;
 	}
 }
